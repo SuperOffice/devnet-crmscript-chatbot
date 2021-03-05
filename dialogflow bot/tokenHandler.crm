@@ -35,11 +35,11 @@ String validate_token(String access_token)
   String invalid_token     = x3.getValueFromPath("error");
 
   if(invalid_token != "invalid_token")
-{
-return access_token;
-}
-else
-{
+  {
+    return access_token;
+  }
+  else
+  {
     JSONBuilder refreshToken;
     refreshToken.pushObject("");
     refreshToken.addString("client_id", client_id);

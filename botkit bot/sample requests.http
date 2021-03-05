@@ -7,7 +7,7 @@ Content-Type: application/json
 {
     "type":"message",
     "text":"see",
-    "user":"28ef498a-936d-9e6a-8117-bb7a20d43e9c",
+    "user":"2345",
     "channel":"webhook"
 }
 

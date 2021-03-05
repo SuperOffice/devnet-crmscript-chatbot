@@ -1,32 +1,14 @@
-# Data Joke bot
+# Dialogflow chatbot
 
-All jokes, all the time.
+This is a more complex example using Google Dialogflow. You need to configure DialogFlow and put the
+appropriate configuration values into the `chatbotConfig.crm` include script,
 
-![chat window](images/chat-top.png)
-
-The bot gets random jokes from a web API, which returns a simple JSON structure:
-
-`GET https://icanhazdadjoke.com/api#fetch-a-random-dad-joke` returns
-
-```json
-{
-  "id": "R7UfaahVfFd",
-  "joke": "My dog used to chase people on a bike a lot. It got so bad I had to take his bike away.",
-  "status": 200
-}
-```
-
-The `joke` value is sent to the chat, and the bot waits for the next message.
-
-The `human` command transfers the session to the queue, where it will be picked up by a fleshbag.
-
-The `quit` command ends the conversation.
-
+The chatbot uses blob table to store access and refresh tokens used to access the Google DialogFlow service.
 
 ## Installation
 
 1. Create a CrmScript folder named 'Dad Joke bot'.
-2. Place the 3 CrmScripts into the folder.
+2. Place the 7 CrmScripts into the folder. Some are include scripts, so ensure their include names are set.
 3. The presence of a script named  `...bot register...` signals the existence of a chatbot in the folder.
 4. Go to the Chat admin and open a chat topic.
 5. Go to the Chatbot tab and enable the chatbot.
@@ -34,7 +16,7 @@ The `quit` command ends the conversation.
 7. Save the chat topic.
 
 Now open a chat window for the chat topic.
-You should be greeted by Echobot using the name you gave in step 6.
+You should be greeted by the bot using the name you gave in step 6.
 
 ![chatbot cjat](images/chat.png)
 

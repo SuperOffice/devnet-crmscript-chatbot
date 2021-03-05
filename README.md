@@ -15,7 +15,19 @@ A simple chatbot using an external service to get its responses.
 
 Random jokes from https://icanhazdadjoke.com/ until you can't take any more.
 
+## [Botkit bot](botkit%20bot/README.md)
+
+A more complex echobot using the [BotKit framework](https://botkit.ai/)
+hosted on [Glitch.me](https://mint-strong-chinchilla.glitch.me/)
+
+
+## Dialogflow bot
+
+TODO
+
 ## Azure LUIS Service
+
+TODO
 
 Chatbot that uses an Azure Language Understanding service to parse and categorize messages from the customer.
 The chatbot then has to perform the actions/intents recognized by the language service.
