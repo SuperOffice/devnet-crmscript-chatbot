@@ -1,0 +1,16 @@
+#setLanguageLevel 3;
+
+Void sendFirstMessage(String chatSessionId, String customerFirstName)
+{
+    String greetingMsg = "Hey "+customerFirstName+"!";
+    String greetingMsgNoName = "Greeting message no name";
+  
+  if(customerFirstName.isEmpty())
+  {
+    addChatMessage(chatSessionId.toInteger(),greetingMsgNoName,1,"Digital assistent",0,"");
+  }
+  else
+  {
+    addChatMessage(chatSessionId.toInteger(),greetingMsg,1,"Digital assistent",0,"");
+  }
+}

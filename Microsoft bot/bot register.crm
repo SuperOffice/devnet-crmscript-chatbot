@@ -1,0 +1,9 @@
+#setLanguageLevel 3;
+
+/* This script does nothing - it is just present to signal that this folder contains a chatbot */
+
+EventData ed = getEventData();
+String action = ed.getInputValue("action");
+String topicId = ed.getInputValue("topicId");
+
+/* action is either 'register' or 'unregister' */

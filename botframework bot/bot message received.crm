@@ -1,0 +1,41 @@
+#setLanguageLevel 3;
+
+EventData ed = getEventData();
+String botName = ed.getInputValue("chatTopic.botName");
+Integer sessionId = ed.getInputValue("chatMessage.sessionId").toInteger();
+String message   = ed.getInputValue("chatMessage.message");
+Integer toCustomer = 1;
+Bool human = false;
+Bool stop = false;
+
+if( message == "human" )
+{
+   message = "Transferring to human...";
+   human = true;
+} else   
+if( message == "stop" || message == "quit" )
+{
+   message = "Bye bye - closing chat.";
+   stop = true;
+} else
+{
+  HTTP http;
+  http.addHeader("Accept", "application/json");
+  Byte[] joke = http.get("https://icanhazdadjoke.com/");
+  String s = String(joke);
+
+  Map map;
+  map.fromJson(s);
+  message = map.get("joke");
+}
+
+addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
+
+if( human )
+{
+   resetChat(sessionId);
+}   
+if( stop )
+{
+   setChatStatus(sessionId, 7); // 7 = closed
+}   

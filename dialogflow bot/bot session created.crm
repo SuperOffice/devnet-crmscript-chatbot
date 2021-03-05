@@ -1,0 +1,11 @@
+#setLanguageLevel 3;
+#include "greetingMessage";
+#include "chatbotConfig";
+
+EventData ed = getEventData();
+String chatSessionId = ed.getInputValue("chatSession.id");
+String customerFirstName = ed.getInputValue("chatSession.customerAlias").before(" ");
+String topicId = ed.getInputValue("chatSession.topicId");
+
+sendFirstMessage(chatSessionId, customerFirstName);
+

@@ -1,0 +1,15 @@
+#setLanguageLevel 3;
+#include "conversationHandler";
+#include "chatbotConfig";
+
+EventData ed = getEventData();
+String chatSessionId  = ed.getInputValue("chatMessage.sessionId");
+String customerText   = ed.getInputValue("chatMessage.message");
+String specialType    = ed.getInputValue("chatMessage.specialType");
+String userId         = ed.getInputValue("chatSession.userId");
+String chatType       = ed.getInputValue("chatMessage.type");
+String topicId        = ed.getInputValue("chatSession.topicId");
+String author         = ed.getInputValue("chatMessage.author");
+
+handleConversation(chatSessionId, customerText, specialType, userId, chatType, topicId, author);
+
