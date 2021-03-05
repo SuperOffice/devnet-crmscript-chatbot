@@ -9,6 +9,20 @@ The `human` command transfers the session to the queue, where it will be picked 
 
 The `quit` command ends the conversation.
 
-## Dad Joke bot
+## [Dad Joke bot](dad%20joke%20bot/README.md)
 
 A simple chatbot using an external service to get its responses.
+
+Random jokes from https://icanhazdadjoke.com/ until you can't take any more.
+
+## Azure LUIS Service
+
+Chatbot that uses an Azure Language Understanding service to parse and categorize messages from the customer.
+The chatbot then has to perform the actions/intents recognized by the language service.
+
+This bot understands two intents:
+
+* joke intent 
+* requests intent
+
+You need to set up a LUIS workspace in Azure with these two intents.
