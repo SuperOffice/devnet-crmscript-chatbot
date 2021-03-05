@@ -34,7 +34,7 @@ The `quit` command ends the conversation.
 7. Save the chat topic.
 
 Now open a chat window for the chat topic.
-You should be greeted by Echobot using the name you gave in step 6.
+You should be greeted by Dad joke bot using the name you gave in step 6.
 
 ![chatbot cjat](images/chat.png)
 
@@ -64,5 +64,5 @@ The script needs to analyze the message and either
 * transfer the chat session to the queue for humans to handle.
 * change the session status to end the session.
 
-The dadjokebot will get a new joke and post it to the chat if the user's message does not match the "human"
-or "quit" commands.
+The dadjokebot will just get a new joke and post it to the chat if the user's message does not match the "human"
+or "quit" commands. It does not analyze the message.

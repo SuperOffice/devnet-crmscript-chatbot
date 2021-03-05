@@ -1,0 +1,14 @@
+GET https://mint-strong-chinchilla.glitch.me/
+
+### messages
+POST https://mint-strong-chinchilla.glitch.me/api/messages
+Content-Type: application/json
+
+{
+    "type":"message",
+    "text":"see",
+    "user":"28ef498a-936d-9e6a-8117-bb7a20d43e9c",
+    "channel":"webhook"
+}
+
+### 
