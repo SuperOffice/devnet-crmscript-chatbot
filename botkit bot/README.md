@@ -3,10 +3,7 @@
 The [BotKit framework](https://botkit.ai/) is on open-source framework for bots. It provides support for
 conversations, regular expressions, hooks for language understanding services, and lots more.
 
-Glitch is free, open programming platform we can use to host a simple demo bot.
-[Glitch botkit](https://glitch.com/~botkit-botframework)
-
-Our botkit remix lives here: https://mint-strong-chinchilla.glitch.me/
+Our botkit service lives here: https://crm-sod.superoffice.com/botkit/
 There is a simple web chat there you can use to test the bot.
 
 It has no state, and just uses some simple matching rules. It is a glorified echo bot.
@@ -17,7 +14,7 @@ It has no state, and just uses some simple matching rules. It is a glorified ech
 * "ABC" -> I HEARD ALL CAPS!
 * wildcard -> Echo wildcard
 
-We post a request to `https://mint-strong-chinchilla.glitch.me/api/messages` 
+We post a request to `https://crm-sod.superoffice.com/botkit/api/messages` 
 
 ```json
 {   "type":"message",
@@ -35,7 +32,16 @@ and get back one or more messages:
   } ]
 ```
 
-## Installation
+## Installation: Botkit
+
+1. Install [NodeJS](https://nodejs.org/en/)
+2. Go to the `botkit` folder.
+3. Open a command-line window
+4. `npm install` will download all the dependencies.
+5. `npm run start` wil start the bot on localhost port 3000
+6. open a browser to http://localhost:3000/ to see a web chat for testing.
+
+## Installation: Chatbot
 
 1. Create a CrmScript folder named 'Botkit'.
 2. Place the 3 CrmScripts into the folder.
@@ -48,7 +54,7 @@ and get back one or more messages:
 Now open a chat window for the chat topic.
 You should be greeted by the Botkit using the name you gave in step 6.
 
-![chatbot cjat](images/chat.png)
+![Botkit chat](images/botkit-chat.png)
 
 ## What Happens
 
@@ -62,20 +68,15 @@ The CrmScript folder is scanned for additional scripts, and the ones with recogn
 When a customer clicks the chat button, a new chat session is created.
 If the chat channel the session is in has a chatbot enabled, then the chatbot script called `...bot session created...` is called. 
 
-The `bot session created` script takes the message from the user, calls the botkit API with it, and gets back a result.
-
-posts a message of instructions, then gets a new joke from the api, and posts that too.
+The `bot session created` script calls the botkit API to start the session, and posts a welcome message to the chat.
 
 
 ### Message Received
 
 When the user posts a message to the channel, and the bot is active, then the script called
 `...bot message received...` is called.
-The script needs to analyze the message and either
 
-* post one or more reply messages.
-* transfer the chat session to the queue for humans to handle.
-* change the session status to end the session.
+The script builds a JSON structure with the message text from the customer, and posts it to botkit.
+Botkit formulates a response and returns a JSON array with one or more messages.
 
-The dadjokebot will get a new joke and post it to the chat if the user's message does not match the "human"
-or "quit" commands.
+We post the botkit response as a new message to the chat.

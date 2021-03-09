@@ -19,14 +19,39 @@ if( message == "stop" || message == "quit" )
    stop = true;
 } else
 {
+  /* {
+    "type":"message",
+    "text":"see",
+    "user":"28ef498a-936d-9e6a-8117-bb7a20d43e9c",
+    "channel":"webhook" } */
+ 	JSONBuilder js;
+	js.setPrettyPrint(4);
+	js.pushObject("");
+	js.addString("type", "message");
+	js.addString("text", message);
+	js.addString("user", sessionId.toString());
+	js.addString("channel", "webhook");
+  js.popLevel();
+  js.finalize();
+  
+  Byte[] data = js.getString().toByteArray();
+  
   HTTP http;
   http.addHeader("Accept", "application/json");
-  Byte[] joke = http.get("https://icanhazdadjoke.com/");
-  String s = String(joke);
-
-  Map map;
-  map.fromJson(s);
-  message = map.get("joke");
+  http.addHeader("Content-type", "application/json");
+  http.addBinaryData(data);  
+  Byte[] bytes = http.post("https://crm-sod.superoffice.com/botkit/api/messages");
+  String s = String(bytes);
+  /* [ {
+    "type": "message",
+    "text": "Echo: see"
+  } ] */
+  XMLNode json = parseJSON(s);
+  XMLNode[] messages = json.getChildren();
+  foreach(XMLNode msg in messages)
+  {
+     message = msg.getValueFromPath("text");
+  }
 }
 
 addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
@@ -39,3 +64,4 @@ if( stop )
 {
    setChatStatus(sessionId, 7); // 7 = closed
 }   
+

@@ -5,7 +5,30 @@ String botName = ed.getInputValue("chatTopic.botName");
 Integer sessionId = ed.getInputValue("chatSession.id").toInteger();
 Integer toCustomer = 1;
 
-String message = "Jokes until you say 'human' to transfer. Say 'quit' to stop.";
+
+
+// Connect to the back end botkit 
+// {"type":"welcome_back","user":"6bbc3a64-376d-d487-b636-3ad22f4ffa7e","channel":"webhook"}
+
+	JSONBuilder js;
+	js.setPrettyPrint(4);
+	js.pushObject("");
+	js.addString("type", "welcome_back");
+	js.addString("user", sessionId.toString());
+	js.addString("channel", "webhook");
+  js.popLevel();
+  js.finalize();
+  
+  Byte[] data = js.getString().toByteArray();
+  
+  HTTP http;
+  http.addHeader("Accept", "application/json");
+  http.addHeader("Content-type", "application/json");
+  http.addBinaryData(data);  
+  Byte[] bytes = http.post("https://crm-sod.superoffice.com/botkit/api/messages");
+  String s = String(bytes);
+  // No response
+
+String message = "Botkit echo until you say 'human' to transfer. Say 'quit' to stop.";
 addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
 // This fires before FAQ has been answered for example.
-
