@@ -1,7 +1,7 @@
 # devnet-crmscript-chatbot
 Chatbot examples - showing how to build a chatbot, and integrate with cloud based services.
 
-## [Echo bot](echobot/README.md)
+## [Echo bot](echobot/)
 
 This simple chatbot is pure CrmScript - it just echoes what the user typed back at them, until the user says "human" or "quit".
 
@@ -9,17 +9,16 @@ The `human` command transfers the session to the queue, where it will be picked 
 
 The `quit` command ends the conversation.
 
-## [Dad Joke bot](dad%20joke%20bot/README.md)
+## [Dad Joke bot](dad%20joke%20bot/)
 
 A simple chatbot using an external service to get its responses.
 
 Random jokes from https://icanhazdadjoke.com/ until you can't take any more.
 
-## [Botkit bot](botkit%20bot/README.md)
+## [Botkit bot](botkit%20bot/)
 
 A more complex echobot using the [BotKit framework](https://botkit.ai/)
-hosted on [Glitch.me](https://mint-strong-chinchilla.glitch.me/)
-
+hosted on [our own server](https://crm-sod.superoffice.com/botkit/) using NodeJS.
 
 ## Dialogflow bot
 
