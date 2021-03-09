@@ -23,60 +23,46 @@ String getResponse(String custText, String chatSessionId)
 
 Void handleConversation(String chatSessionId, String customerText, String specialType, String userId, String chatType, String topicId, String author)
 { 
-SearchEngine getLastBotMsg;
-  getLastBotMsg.addField("chat_message.message");
-  getLastBotMsg.addCriteria("chat_message.type", "Equals", "1");
-  getLastBotMsg.addCriteria("chat_message.author", "Equals", botName);
-  getLastBotMsg.addCriteria("chat_message.session_id", "Equals", chatSessionId);
-  getLastBotMsg.setLimit(1);
-  getLastBotMsg.addOrder("chat_message.id", false);
-  getLastBotMsg.execute();
-  String lastBotMsg = getLastBotMsg.getField("chat_message.message");   
+  //Saving the returned values needed.
+  XMLNode x2             = parseJSON(getResponse(customerText, chatSessionId));
+  String response        = x2.getValueFromPath("1.fulfillmentMessages.0.text.text.0"); //Returned the first text response configured in DialogFlow.
+  String confirmMsg      = x2.getValueFromPath("1.fulfillmentMessages.1.text.text.0"); //Second payload text response, Will be sent as second response.
+  String intentName      = x2.getValueFromPath("1.intent.displayName");  //Returned intent name found in DialogFlow. WIll be used to decide action based on intent.
+  String optionButtons   = x2.getValueFromPath("1.fulfillmentMessages.1.payload.options"); //If there are buttons configured for the first response configured in DialogFlow.
+  String confirmButtons  = x2.getValueFromPath("1.fulfillmentMessages.2.payload.options"); //If there are buttons configured for the second response configured in DialogFlow.
+        
+  DateTime msgDelay;
 
-  //Only trigger if the message is coming from a customer and if it has not been handed over.
-  if(userId == "-1" && specialType != "10" && specialType != "11" && chatType =="2" && lastBotMsg != handOverMsg)
-  {       
-    //Saving the returned values needed.
-    XMLNode x2             = parseJSON(getResponse(customerText, chatSessionId));
-    String response        = x2.getValueFromPath("1.fulfillmentMessages.0.text.text.0"); //Returned the first text response configured in DialogFlow.
-    String confirmMsg      = x2.getValueFromPath("1.fulfillmentMessages.1.text.text.0"); //Second payload text response, Will be sent as second response.
-    String intentName      = x2.getValueFromPath("1.intent.displayName");  //Returned intent name found in DialogFlow. WIll be used to decide action based on intent.
-    String optionButtons   = x2.getValueFromPath("1.fulfillmentMessages.1.payload.options"); //If there are buttons configured for the first response configured in DialogFlow.
-    String confirmButtons  = x2.getValueFromPath("1.fulfillmentMessages.2.payload.options"); //If there are buttons configured for the second response configured in DialogFlow.
-          
-    DateTime msgDelay;
-
-    //Determines next action, based on returned values from DialogFlow.
-    if(intentName.toUpper().beginsWith(handOverIntent.toUpper()))
-    {
-   addChatMessage(chatSessionId.toInteger(),handOverMsg ,1,botName,0,"");
-      resetChat(chatSessionId.toInteger());
-    }
-    else if(intentName.toUpper().beginsWith(doneConversationIntent.toUpper()))
-    {      
+  //Determines next action, based on returned values from DialogFlow.
+  if(intentName.toUpper().beginsWith(handOverIntent.toUpper()))
+  {
+    addChatMessage(chatSessionId.toInteger(),handOverMsg ,1,botName,0,"");
+    resetChat(chatSessionId.toInteger());
+  }
+  else if(intentName.toUpper().beginsWith(doneConversationIntent.toUpper()))
+  {      
     if(response != "")
-      {
-        addChatMessage(chatSessionId.toInteger(),response.utf8Decode(),1,botName,0,"");
-        setChatStatus(chatSessionId.toInteger(), 7);
-      }
-      else
-      {
-      addChatMessage(chatSessionId.toInteger(),goodBye,1,botName,0,"");
-        setChatStatus(chatSessionId.toInteger(), 7);
-      }
-    }
-    else if(optionButtons.getLength() > 0)
     {
-    addChatMessage(chatSessionId.toInteger(), response.utf8Decode(), 1, botName, 17, optionButtons.utf8Decode(), msgDelay.addSec(messageDelay));
-    }
-    else if(confirmMsg !="")
-    {
-    addChatMessage(chatSessionId.toInteger(),response.utf8Decode(),1,botName,16,"showAt="+msgDelay.addSec(messageDelay).toString());
-      addChatMessage(chatSessionId.toInteger(),confirmMsg.utf8Decode(),1,botName,17,confirmButtons.utf8Decode(),msgDelay.addSec(secondMsgDelay));
+      addChatMessage(chatSessionId.toInteger(),response.utf8Decode(),1,botName,0,"");
+      setChatStatus(chatSessionId.toInteger(), 7);
     }
     else
     {
-    addChatMessage(chatSessionId.toInteger(),response.utf8Decode(),1,botName,16,"showAt="+ msgDelay.addSec(messageDelay).toString());
+      addChatMessage(chatSessionId.toInteger(),goodBye,1,botName,0,"");
+      setChatStatus(chatSessionId.toInteger(), 7);
     }
+  }
+  else if(optionButtons.getLength() > 0)
+  {
+    addChatMessage(chatSessionId.toInteger(), response.utf8Decode(), 1, botName, 17, optionButtons.utf8Decode(), msgDelay.addSec(messageDelay));
+  }
+  else if(confirmMsg !="")
+  {
+    addChatMessage(chatSessionId.toInteger(),response.utf8Decode(),1,botName,16,"showAt="+msgDelay.addSec(messageDelay).toString());
+    addChatMessage(chatSessionId.toInteger(),confirmMsg.utf8Decode(),1,botName,17,confirmButtons.utf8Decode(),msgDelay.addSec(secondMsgDelay));
+  }
+  else
+  {       
+    addChatMessage(chatSessionId.toInteger(),response.utf8Decode(),1,botName,16,"showAt="+ msgDelay.addSec(messageDelay).toString());
   }
 }

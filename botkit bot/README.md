@@ -12,9 +12,12 @@ It has no state, and just uses some simple matching rules. It is a glorified ech
 * "foo" -> I heard "foo" via a function test
 * "123" -> I heard a number using a regular expression.
 * "ABC" -> I HEARD ALL CAPS!
-* wildcard -> Echo wildcard
+* wildcard -> Echo: wildcard
 
-We post a request to `https://crm-sod.superoffice.com/botkit/api/messages` 
+These rules are coded into the [botkit/features/ folder](botkit/features/).
+It's easy to extend the botkit with more rules.
+
+We post the message to `https://crm-sod.superoffice.com/botkit/api/messages` 
 
 ```json
 {   "type":"message",
@@ -23,7 +26,7 @@ We post a request to `https://crm-sod.superoffice.com/botkit/api/messages`
     "channel":"webhook" }
 ```
 
-and get back one or more messages:
+and get back one or more message responses:
 
 ```json
 [ {
@@ -31,6 +34,8 @@ and get back one or more messages:
     "text": "Echo: see"
   } ]
 ```
+
+We just mirror the botkit response to the chat session.
 
 ## Installation: Botkit
 
