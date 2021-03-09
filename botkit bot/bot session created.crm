@@ -9,19 +9,3 @@ String message = "Jokes until you say 'human' to transfer. Say 'quit' to stop.";
 addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
 // This fires before FAQ has been answered for example.
 
-// get first joke
-HTTP http;
-http.addHeader("Accept", "application/json");
-Byte[] joke = http.get("https://icanhazdadjoke.com/");
-String s = String(joke);
-/* {
-  "id": "R7UfaahVfFd",
-  "joke": "My dog used to chase people on a bike a lot. It got so bad I had to take his bike away.",
-  "status": 200
-} */
-// extract joke from JSON
-Map map;
-map.fromJson(s);
-message = map.get("joke");
-
-addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
