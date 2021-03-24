@@ -1,9 +1,9 @@
 # Dialogflow chatbot
 
-This is a more complex example using Google Dialogflow. You need to configure DialogFlow and put the
+This is a more complex example using Google Dialogflow. You need to configure Dialogflow and put the
 appropriate configuration values into the `chatbotConfig.crm` include script,
 
-The chatbot uses blob table to store access and refresh tokens used to access the Google DialogFlow service.
+The chatbot uses blob table to store access and refresh tokens used to access the Google Dialogflow service.
 
 ## Installation
 
@@ -53,16 +53,14 @@ or "quit" commands.
 
 
 ![Dialogflow](https://upload.wikimedia.org/wikipedia/en/c/c7/Dialogflow_logo.svg)  
-  
-
-## Getting started with DialogFlow 
+## Getting started with Dialogflow 
 
 *** 
 
-This is a short description on how to setup DialogFlow for your SuperOffice installation.  
+This is a short description on how to setup Dialogflow for your SuperOffice installation.  
 This is not to be considered as best practice, but rather as a quick start to quickly get up and running.  
 
-There are a couple of steps that needs to be taken in order to get get this to work:
+There are a couple of steps that needs to be taken in order to get this to work:
 
 - [ ] Create your DialogFlow agent.
 - [ ] Generate client ID and client secret.
@@ -74,21 +72,22 @@ There are a couple of steps that needs to be taken in order to get get this to w
 
 ***  
 
-### Create your DialogFlow agent
+### Create your Dialogflow agent
 
-> *More information regarding DialogFlow can be found in* *[DialogFlow documentation](https://cloud.google.com/dialogflow/docs)* 
+> *More information regarding Dialogflow can be found in* *[Dialogflow documentation](https://cloud.google.com/dialogflow/docs)* 
 
-- Head over to [DialogFlow console](https://dialogflow.cloud.google.com/)
+- Head over to [Dialogflow console](https://dialogflow.cloud.google.com/)
 - Create a [new agent](https://cloud.google.com/dialogflow/es/docs/agents-overview) 
 
  
-We now have our DialogFlow agent up and running.  
-- [x] Create your DialogFlow agent.  
+You now have your Dialogflow agent up and running.  
+- [x] Create your Dialogflow agent.  
 ---
 ### Get your client ID and secret
 - Head over to [Google cloud console](https://console.cloud.google.com/)
 - From the cloud console, navigate to *___APIs & services___* - *___OAuth consent screen___*.
-  - For the sake of this demo, we will choose *User Type - External*
+  - Create a new OAuth consent screen. 
+  - For the sake of this demo, we will choose *User Type - External*.
   - Fill in the necessary details.
   - Enter your email under *Test users*.
   - Finish the OAuth consent screen configuration.
@@ -116,12 +115,12 @@ With these ID's we will now obtain our access and refresh tokens. These values w
 Using this refresh token, we can now proceed and finalize the configuration in SuperOffice.  
 - [x] Get your client ID and secret  
 ---  
-### Enter your DialogFlow specific data into SuperOffice
+### Enter your Dialogflow specific data into SuperOffice
 
 In the chatbotConfig.crm, enter the values obtained from the previous steps.
 
 ```
-//Project id in DialogFlow console
+//Project id in Dialogflow console
 String project_id  = 'x';
 
 //What is your client ID?
@@ -131,13 +130,13 @@ String client_id = 'X';
 String client_secret = 'x';
 ```
 
-The tokens are stored in the BinaryObject table. To insert your token, enter your refresh token into InsertTokens.crm:
+The tokens are stored in the BinaryObject table. To insert your token, enter your refresh token into InsertTokens.crm and execute the script:
 
 ```
 String access_token = "X";
 String refresh_token ="X";
 ```  
-- [x] Enter your DialogFlow specific data into SuperOffice  
+- [x] Enter your Dialogflow specific data into SuperOffice  
 ---  
 ### Extras:
 
@@ -161,4 +160,7 @@ String refresh_token ="X";
   ]
 }
 ````
+
+![intentSetup](https://user-images.githubusercontent.com/51675204/112274552-4b7eb200-8c87-11eb-8b40-6702cf383e75.jpg)
+![exampleMsg](https://user-images.githubusercontent.com/51675204/112274622-5e918200-8c87-11eb-823f-42d418312139.jpg)
 
