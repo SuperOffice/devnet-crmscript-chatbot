@@ -13,17 +13,24 @@ if( message == "human" )
    message = "Transferring to human...";
    human = true;
 }   
-if( message == "stop" || message == "quit" )
+else if( message == "stop" || message == "quit" )
 {
    message = "Bye bye - closing chat.";
    stop = true;
 }   
+else
+{
+   message = "Echo: " + message;
+}
 
 addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
 
 if( human )
 {
    resetChat(sessionId);
+   // This sets the chat session state back to the beginning, but this time without the bot enabled.
+   // this means the pre-chat form and/or FAQ get show after the bot has finished
+   // but before the bot get sent to the queue.
 }   
 if( stop )
 {

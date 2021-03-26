@@ -7,9 +7,10 @@ Integer sessionState = ed.getInputValue("chatSession.status").toInteger();
 Integer toCustomer = 1;
 
 // if pre-chat form is enabled, then we are created with state < 4
+// and we should stay quiet until pre-chat is done
 
-String message = "Welcome human. Say 'human' to transfer. Say 'quit' to end session.";
-addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
-
-// Sending a message here changes the session state to 6 (message-from-user) 
-// so we skip any pre-chat form or FAQ check.
+if( sessionState == 4 ) // we are starting in queue - no prechat-form
+{
+  String message = "Welcome human. Say 'human' to transfer. Say 'quit' to end session.";
+  addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
+}

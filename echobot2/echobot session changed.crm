@@ -1,0 +1,17 @@
+#setLanguageLevel 3;
+
+EventData ed = getEventData();
+String botName = ed.getInputValue("chatTopic.botName");
+Integer sessionId = ed.getInputValue("chatSession.id").toInteger();
+Integer sessionState = ed.getInputValue("chatSession.status").toInteger();
+Integer toCustomer = 1;
+
+// if pre-chat form is enabled, then status starts with state < 4
+// This fires when going from pre-chat form to queue
+
+if( sessionState == 4 ) // we are going to queue
+{
+  String message = "Welcome human. Say 'human' to transfer. Say 'quit' to end session.";
+  addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
+}
+

@@ -10,6 +10,7 @@ The `human` command transfers the session to the queue, where it will be picked 
 
 The `quit` command ends the conversation.
 
+If you configure a pre-chat form or FAQ lookup, those are done after the chatbot is finished, not before.
 
 ## Installation
 
@@ -47,7 +48,16 @@ The echobot does not do anything, but you can use this to set up or clean up thi
 When a customer clicks the chat button, a new chat session is created.
 If the chat channel the session is in has a chatbot enabled, then the chatbot script called `...bot session created...` is called. This happens before the FAQ or pre-chat forms are shown.
 
-The bot can post messages if it wants to.
+The bot can post messages if it wants to, but this will skip the FAQ and pre-chat forms, and go straight to discussion state.
+
+![chat states](images/states.png)
+
+### Session Changed
+
+The session starts in the FAQ/Pre-chat state if these are configured on the chat topic.
+
+When the session changes state to 4 (in-queue) - then the pre-chat form and faq are done. This is the point
+where a bot can start talking to the user.
 
 ### Message Received
 
@@ -59,3 +69,7 @@ The script needs to analyze the message and either
 * transfer the chat session to the queue for humans to handle.
 * change the session status to end the session.
 
+When the chat session is reset, then the session starts back at the beginning, but without the bot active.
+
+This means that the pre-chat form and FAQ are shown after the bot hands off the session, which may not be what you want.
+To allow the pre-chat form and FAQ to be processed first, you need more logic. See [echobot2](../echobot2/) for details.
