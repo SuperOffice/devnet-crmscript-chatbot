@@ -41,3 +41,4 @@ When the user posts a message to the channel, and the bot is active, then the sc
 `...bot message received...` is called.
 
 If the session has not yet reached the queue state, then the bot must ignore its input.
+Let the default processing handle the message.

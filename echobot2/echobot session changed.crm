@@ -9,9 +9,9 @@ Integer toCustomer = 1;
 // if pre-chat form is enabled, then status starts with state < 4
 // This fires when going from pre-chat form to queue
 
-if( sessionState == 4 ) // we are going to queue
+if( sessionState == 4 ) // we are going to the queue
 {
-  String message = "Welcome human. Say 'human' to transfer. Say 'quit' to end session.";
+  String message = "Hello human. I am "+ botName +". Say 'human' to transfer. Say 'quit' to end session.";
   addChatMessage(sessionId, message, toCustomer, botName, 0, "" );
 }
 
