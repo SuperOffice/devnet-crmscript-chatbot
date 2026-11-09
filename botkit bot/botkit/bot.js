@@ -22,6 +22,11 @@ const adapter = new WebAdapter({});
 const controller = new Botkit({
     debug: true,
     webhook_uri: '/api/messages',
+    // Explicit request body caps. Mitigates the zod memory-exhaustion advisory
+    // (botbuilder pins zod 3.x, which has no fix; botbuilder-js is archived).
+    // Chat messages are tiny, so oversized payloads are rejected before validation.
+    jsonLimit: '100kb',
+    urlEncodedLimit: '100kb',
     adapter: adapter,
     storage
 });
